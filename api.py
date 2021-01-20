@@ -8,10 +8,16 @@ from users_data import users
 
 app = Flask(__name__)
 
+counter = 0
+running = False
+
 
 @app.route("/")
 def index():
-    return "hi"
+    global counter
+    counter += 1
+    return f"<h1>Hi {counter}</h1>"
+#    return f"hi {counter}"
 
 
 @app.route("/run")
@@ -34,4 +40,4 @@ def run():
     return "READY!"
 
 
-app.run()
+app.run(host="0.0.0.0")

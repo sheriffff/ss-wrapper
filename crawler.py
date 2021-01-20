@@ -1,6 +1,7 @@
 import time
 import random
 
+from datetime import datetime
 from googletrans import Translator
 from number2words import Number2Words
 
@@ -16,8 +17,7 @@ class SSocialCrawler:
     def run_until_success(self):
         while True:
             self.run_process()
-            # if self.is_step_three() and self.has_desired_dates():
-            if self.is_step_three():
+            if self.is_step_three() and self.has_desired_dates():
                 print('SUCCESS')
                 return
             else:
@@ -81,19 +81,27 @@ class SSocialCrawler:
         if min_date or max_date:
             # html tags which could be dates
             elements = self.driver.find_elements_by_css_selector(
-                "#ARQcapaPrincipal fieldset div:nth-child(3) table tbody tr:nth-child(1) td:nth-child(3) "
-                "div:nth-child(1) span:nth-child(2)"
+                "#ARQcapaPrincipal fieldset div table tbody tr td div span"
             )
 
             # html tags with actual dates + date extraction
             dates = [elem.text for elem in elements if elem.text.count("/") == 2]
-            print(dates)
-            # is there any desired date?
-            for d in dates:
-                # TODO datetime comparison
-                if min_date <= d <= max_date:
+            print(f"dates: {dates}")
+            if not dates:
+                raise Exception("no html tag found with date information")
+
+            # is there any desired date available?
+            for date_string in dates:
+                date = datetime.strptime(date_string, "%d/%m/%Y")
+
+                if (
+                        ((not min_date) or (datetime.strptime(min_date, "%d/%m/%Y") < date)) and
+                        ((not max_date) or (datetime.strptime(max_date, "%d/%m/%Y") > date))
+                ):
+                    print("hay día")
                     return True
             else:
+                print("no hay días")
                 return False
 
         else:
