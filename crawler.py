@@ -59,8 +59,8 @@ class SSocialCrawler:
             self.try_solution()
 
     def choose_option(self, option=None):
-        # TODO more options
-        self.driver.find_element_by_id("335").click()
+        option_id = self.user_data.get("motivo") or "pensiones"
+        self.driver.find_element_by_id(option_id).click()
         self.driver.find_element_by_name("SPM.ACC.CONTINUAR_TRAS_SELECCIONAR_SERVICIO").click()
 
     def is_step_three(self):
