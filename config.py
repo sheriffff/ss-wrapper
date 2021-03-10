@@ -1,4 +1,4 @@
-run_selenium = True
+run_selenium = False
 
 options_ids = {
     "otras": 336,  # Nacimiento y cuidado de menor, con o sin asistencia sanitaria, incapacidad temporal, prestaciones familiares, riesgos embarazo y lactancia
