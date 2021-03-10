@@ -107,9 +107,6 @@ if st.button("Consígue mi cita"):
             st.success(mensaje_common + mensaje_mail)
 
         if run_selenium:
-            try:
-                driver = webdriver.Chrome("./chromedriver")
-                ss = SSocialCrawler(driver, user_data)
-                ss.run_until_success()
-            except Exception:
-                st.write("Ha habido un error")
+            driver = webdriver.Chrome("./chromedriver")
+            ss = SSocialCrawler(driver, user_data)
+            ss.run_until_success()
