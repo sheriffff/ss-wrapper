@@ -3,7 +3,7 @@ from flask import request
 
 from selenium import webdriver
 from crawler import SSocialCrawler
-from music import play_clip
+from media.music import play_clip
 from users_data import users
 
 app = Flask(__name__)
@@ -35,9 +35,21 @@ def run():
     ss = SSocialCrawler(driver, user_data)
     ss.run_until_success()
 
-    play_clip("./beep.wav")
+    play_clip("media/beep.wav")
 
     return "READY!"
+
+
+@app.route('/testpost', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        print("posted")
+        return {"tipo_llamada": "post"}
+    else:
+        print("gotten")
+        return {"tipo_llamada": "get"}
+    print("hola")
+    print(request.data)
 
 
 app.run(host="0.0.0.0")

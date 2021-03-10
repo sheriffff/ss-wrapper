@@ -5,6 +5,8 @@ from datetime import datetime
 from googletrans import Translator
 from number2words import Number2Words
 
+from config import options_ids
+
 
 class SSocialCrawler:
     url = "https://w6.seg-social.es/ProsaInternetAnonimo/OnlineAccess?ARQ.SPM.ACTION=LOGIN&ARQ.SPM.APPTYPE=SERVICE&" \
@@ -59,7 +61,8 @@ class SSocialCrawler:
             self.try_solution()
 
     def choose_option(self, option=None):
-        option_id = self.user_data.get("motivo") or "pensiones"
+        option = self.user_data.get("motivo") or "pensiones"
+        option_id = options_ids[option]
         self.driver.find_element_by_id(option_id).click()
         self.driver.find_element_by_name("SPM.ACC.CONTINUAR_TRAS_SELECCIONAR_SERVICIO").click()
 
