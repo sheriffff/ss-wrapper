@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+import requests
 from selenium import webdriver
 from PIL import Image
 
@@ -9,6 +10,8 @@ from config import options_ids_interface_map, options_ids_interface_order, run_s
 
 
 st.write(os.environ.get("MAIL_PASS"))
+response = requests.get("http://api.open-notify.org/iss-now.json")
+st.write(str(response.json()))
 button_pushed = False
 # intro
 # image_ss_logo = Image.open("./media/ss_logo.jpg")
