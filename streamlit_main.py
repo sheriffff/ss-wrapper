@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from selenium import webdriver
 from PIL import Image
@@ -7,7 +8,7 @@ from streamlit_utils import is_dni_correct, is_telf_correct, is_mail_correct
 from config import options_ids_interface_map, options_ids_interface_order, run_selenium
 
 
-
+st.write(os.environ.get("MAIL_PASS"))
 button_pushed = False
 # intro
 # image_ss_logo = Image.open("./media/ss_logo.jpg")
